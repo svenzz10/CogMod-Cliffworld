@@ -221,22 +221,23 @@ def plot_cumreward_normalized(reward_cache_qlearning, reward_cache_SARSA):
     # prepare the graph  
 
     """Uncomment this to create a plot about Q-learning vs SARSA"""
-    plt.plot(cum_rewards_q, label = "Q-Learning")
-    plt.plot(cum_rewards_SARSA, label = "SARSA")
-    plt.ylabel('Cumulative Rewards per Cluster of Episodes')
-    plt.xlabel('Episodes (cluster of 10)')
-    plt.title("Q-Learning/SARSA Performance")
-    plt.legend(loc='lower right', ncol=2, mode="expand", borderaxespad=0.)
-    plt.savefig('performance-qlearning-sarsa')
-
-    """Uncomment this to create a plot about softmax vs e-greedy"""
-    # plt.plot(cum_rewards_q, label = "Q-Learning E-greedy")
-    # plt.plot(cum_rewards_SARSA, label = "Q-Learning Softmax")
+    # plt.plot(cum_rewards_q, label = "Q-Learning")
+    # plt.plot(cum_rewards_SARSA, label = "SARSA")
     # plt.ylabel('Cumulative Rewards per Cluster of Episodes')
     # plt.xlabel('Episodes (cluster of 10)')
-    # plt.title("Action Selectors Performance E-Greedy vs Softmax")
+    # plt.yticks(np.arange(-60, 1, step=10))  # Set label locations.
+    # plt.title("Q-Learning/SARSA Performance")
     # plt.legend(loc='lower right', ncol=2, mode="expand", borderaxespad=0.)
-    # plt.savefig('performance-action-selectors')
+    # plt.savefig('performance-qlearning-sarsa_epsilon01')
+
+    """Uncomment this to create a plot about softmax vs e-greedy"""
+    plt.plot(cum_rewards_q, label = "Q-Learning E-greedy")
+    plt.plot(cum_rewards_SARSA, label = "Q-Learning Softmax")
+    plt.ylabel('Cumulative Rewards per Cluster of Episodes')
+    plt.xlabel('Episodes (cluster of 10)')
+    plt.title("Action Selectors Performance E-Greedy vs Softmax")
+    plt.legend(loc='lower right', ncol=2, mode="expand", borderaxespad=0.)
+    plt.savefig('performance-action-selectors')
 
 def plot_cumreward_normalized_temperatures(reward_cache1, reward_cache2, reward_cache3, reward_cache4):
     cum_rewards_1 = []
@@ -346,46 +347,76 @@ if __name__ == "__main__":
     """To Generate Figure Performance SARSA with softmax different temperatures
         uncomment to use
     """
-    # ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=0.5) #settings for agent
-    # reward_cache_temp05, _ = ag.learn(iterations=500) #used for training the agent 
-    # calculateOptimalPolicy(ag) #calculating optimal policy
+    # reward_cache_temp05_sum = []
+    # for i in range(1,10):
+    #     ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=0.5) #settings for agent
+    #     reward_cache_temp05, _ = ag.learn(iterations=500) #used for training the agent 
+    #     if i == 1: reward_cache_temp05_sum = reward_cache_temp05
+    #     else: reward_cache_temp05_sum = [a + b for a, b in zip(reward_cache_temp05_sum, reward_cache_temp05)]
+    # end_data_reward_cache_temp05 = [a / 10 for a in reward_cache_temp05_sum]
 
-    # ag = Agent(epsilon=0.1, lr=0.1, sarsa=True, softmax=True, temp=0.9) #settings for agent
-    # reward_cache_temp09, _ = ag.learn(iterations=500) #used for training the agent 
-    # calculateOptimalPolicy(ag)
+    # reward_cache_temp09_sum = []
+    # for i in range(1,10):
+    #     ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=0.9) #settings for agent
+    #     reward_cache_temp09, _ = ag.learn(iterations=500) #used for training the agent 
+    #     if i == 1: reward_cache_temp09_sum = reward_cache_temp09
+    #     else: reward_cache_temp09_sum = [a + b for a, b in zip(reward_cache_temp09_sum, reward_cache_temp09)]
+    # end_data_reward_cache_temp09 = [a / 10 for a in reward_cache_temp09_sum]
 
-    # ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=5) #settings for agent
-    # reward_cache_temp5, _ = ag.learn(iterations=500) #used for training the agent 
-    # calculateOptimalPolicy(ag) #calculating optimal policy
+    # reward_cache_temp5_sum = []
+    # for i in range(1,10):
+    #     ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=5) #settings for agent
+    #     reward_cache_temp5, _ = ag.learn(iterations=500) #used for training the agent 
+    #     if i == 1: reward_cache_temp5_sum = reward_cache_temp5
+    #     else: reward_cache_temp5_sum = [a + b for a, b in zip(reward_cache_temp5_sum, reward_cache_temp5)]
+    # end_data_reward_cache_temp5 = [a / 10 for a in reward_cache_temp5_sum]
 
-    # ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=15) #settings for agent
-    # reward_cache_temp15, _ = ag.learn(iterations=500) #used for training the agent 
-    # calculateOptimalPolicy(ag) #calculating optimal policy
+    # reward_cache_temp15_sum = []
+    # for i in range(1,10):
+    #     ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True, temp=5) #settings for agent
+    #     reward_cache_temp15, _ = ag.learn(iterations=500) #used for training the agent 
+    #     if i == 1: reward_cache_temp15_sum = reward_cache_temp15
+    # end_data_reward_cache_temp15 = [a / 10 for a in reward_cache_temp15_sum]
 
-    # plot_cumreward_normalized_temperatures(reward_cache_temp05, reward_cache_temp09, reward_cache_temp5, reward_cache_temp15)
+    # plot_cumreward_normalized_temperatures(end_data_reward_cache_temp05, end_data_reward_cache_temp09, end_data_reward_cache_temp5, end_data_reward_cache_temp15)
 
     """To Generate Figure Q-learning softmax vs e-greedy
         uncomment to use
     """
-    # ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=False) #settings for agent
-    # reward_cache_q_learning, _ = ag.learn(iterations=500) #used for training the agent 
-    # calculateOptimalPolicy(ag)
+    reward_cache_e_greedy_sum = []
+    for i in range(1,50):
+        ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=False) #settings for agent
+        reward_cache_e_greedy, _ = ag.learn(iterations=500) #used for training the agent
+        if i == 1: reward_cache_e_greedy_sum = reward_cache_e_greedy
+        else: reward_cache_e_greedy_sum = [a + b for a, b in zip(reward_cache_e_greedy_sum, reward_cache_e_greedy)]
+    end_data_e_greedy = [a / 50 for a in reward_cache_e_greedy_sum] 
 
-    # ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True) #settings for agent
-    # reward_cache_sarsa, _ = ag.learn(iterations=500) #used for training the agent 
-    # calculateOptimalPolicy(ag) #calculating optimal policy
+    reward_cache_softmax_sum = []
+    for i in range(1,50):
+        ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=True) #settings for agent
+        reward_cache_softmax, _ = ag.learn(iterations=500) #used for training the agent
+        if i == 1: reward_cache_softmax_sum = reward_cache_softmax
+        else: reward_cache_softmax_sum = [a + b for a, b in zip(reward_cache_softmax_sum, reward_cache_softmax)]
+    end_data_softmax = [a / 50 for a in reward_cache_softmax_sum] 
 
-    # plot_cumreward_normalized(reward_cache_q_learning, reward_cache_sarsa)
+    plot_cumreward_normalized(end_data_e_greedy, end_data_softmax)
     
     """To Generate Figure Performance Q-learning vs Sarsa
         uncomment to use
     """
-    ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=False) #settings for agent
-    reward_cache_q_learning, _ = ag.learn(iterations=500) #used for training the agent 
-    calculateOptimalPolicy(ag)
-
-    ag = Agent(epsilon=0.1, lr=0.1, sarsa=True, softmax=False) #settings for agent
-    reward_cache_sarsa, _ = ag.learn(iterations=500) #used for training the agent 
-    calculateOptimalPolicy(ag) #calculating optimal policy
-
-    plot_cumreward_normalized(reward_cache_q_learning, reward_cache_sarsa)
+    # reward_cache_q_learning_sum = []
+    # for i in range(1,50):
+    #     ag = Agent(epsilon=0.1, lr=0.1, sarsa=False, softmax=False) #settings for agent
+    #     reward_cache_q_learning, _ = ag.learn(iterations=500) #used for training the agent 
+    #     if i == 1: reward_cache_q_learning_sum = reward_cache_q_learning
+    #     else: reward_cache_q_learning_sum = [a + b for a, b in zip(reward_cache_q_learning_sum, reward_cache_q_learning)]
+    # end_data_q_learning = [a / 50 for a in reward_cache_q_learning_sum]
+    
+    # reward_cache_sarsa_sum = []
+    # for i in range(1,50):
+    #     ag = Agent(epsilon=0.1, lr=0.1, sarsa=True, softmax=False) #settings for agent
+    #     reward_cache_sarsa, _ = ag.learn(iterations=500) #used for training the agent 
+    #     if i == 1: reward_cache_sarsa_sum = reward_cache_sarsa
+    #     else: reward_cache_sarsa_sum = [a + b for a, b in zip(reward_cache_sarsa_sum, reward_cache_sarsa)]
+    # end_data_sarsa = [a / 50 for a in reward_cache_sarsa_sum]
+    # plot_cumreward_normalized(end_data_q_learning, end_data_sarsa)
